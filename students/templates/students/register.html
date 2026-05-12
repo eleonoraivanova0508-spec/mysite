@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:20px;
+
+            background:url('https://i.pinimg.com/474x/21/11/c2/2111c206bf9bd977de79d1aa6a2a7f8b.jpg');
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+        }
+
+        .register-box{
+            width:100%;
+            max-width:420px;
+
+            background:rgba(255,255,255,0.12);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            padding:40px 35px;
+
+            border-radius:28px;
+
+            box-shadow:0 20px 40px rgba(0,0,0,0.3);
+
+            border:1px solid rgba(255,255,255,0.25);
+            transition:0.3s;
+        }
+
+        .register-box h2{
+            text-align:center;
+            color:white;
+            margin-bottom:30px;
+            font-size:32px;
+            font-weight:700;
+            letter-spacing:-0.5px;
+        }
+
+        form p{
+            margin-bottom:22px;
+        }
+
+        form label{
+            display:block;
+            color:white;
+            margin-bottom:8px;
+            font-size:14px;
+            font-weight:500;
+            letter-spacing:0.3px;
+        }
+
+        form input{
+            width:100%;
+            padding:12px 16px;
+
+            border:none;
+            border-radius:14px;
+
+            outline:none;
+
+            background:rgba(255,255,255,0.2);
+            color:white;
+
+            font-size:15px;
+            transition:0.2s;
+        }
+
+        form input:focus{
+            background:rgba(255,255,255,0.3);
+            box-shadow:0 0 0 2px rgba(255,255,255,0.5);
+        }
+
+        form input::placeholder{
+            color:rgba(255,255,255,0.7);
+        }
+
+        /* ПОЛНОСТЬЮ СКРЫВАЕМ ВСЕ ПОДСКАЗКИ DJANGO */
+        .helptext,
+        ul.errorlist,
+        .errorlist,
+        form ul,
+        form .errorlist,
+        .field-note{
+            display: none !important;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+
+            border:none;
+            border-radius:40px;
+
+            background:white;
+            color:#1e2f3e;
+
+            font-size:16px;
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.2s;
+            margin-top:6px;
+        }
+
+        button:hover{
+            transform:translateY(-2px);
+            background:#f5f5f5;
+            box-shadow:0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .login-link{
+            margin-top:24px;
+            text-align:center;
+        }
+
+        .login-link a{
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+            font-weight:500;
+            opacity:0.9;
+            transition:0.2s;
+        }
+
+        .login-link a:hover{
+            text-decoration:underline;
+            opacity:1;
+        }
+
+        /* скрываем возможные span с валидацией */
+        form p span{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="register-box">
+
+    <h2>📝 Регистрация</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+            </p>
+        {% endfor %}
+
+        <button type="submit">
+            Зарегистрироваться
+        </button>
+    </form>
+
+    <div class="login-link">
+        <a href="{% url 'login' %}">
+            🔑 Уже есть аккаунт? Войти
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

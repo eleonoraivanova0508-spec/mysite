@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Редактировать</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRswvEziAqWy2oDhWxXYk3vaNts9AJ-_tFA&s") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.box{
+    width:500px;
+    margin:60px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    background:#f39c12;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+a{
+    display:inline-block;
+    margin-top:10px;
+    background:#3498db;
+    color:white;
+    padding:10px 15px;
+    text-decoration:none;
+    border-radius:8px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h2>Редактировать студента</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>Имя:</p>
+    <input type="text" name="first_name" value="{{ student.first_name }}">
+
+    <p>Фамилия:</p>
+    <input type="text" name="last_name" value="{{ student.last_name }}">
+
+    <p>Возраст:</p>
+    <input type="number" name="age" value="{{ student.age }}">
+
+    <p>Телефон:</p>
+    <input type="text" name="phone" value="{{ student.phone }}">
+
+    <p>Почта:</p>
+    <input type="email" name="email" value="{{ student.email }}">
+
+    <!-- ГРУППА -->
+    <p>Группа:</p>
+    <select name="group">
+        <option value="">-- выберите группу --</option>
+        {% for group in groups %}
+            <option value="{{ group.id }}"
+                {% if student.group and student.group.id == group.id %}
+                    selected
+                {% endif %}
+            >
+                {{ group.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <!-- КЛУБ -->
+    <p>Клуб:</p>
+    <select name="club">
+        <option value="">-- выберите клуб --</option>
+        {% for club in clubs %}
+            <option value="{{ club.id }}"
+                {% if student.club and student.club.id == club.id %}
+                    selected
+                {% endif %}
+            >
+                {{ club.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <p>Фото:</p>
+    <input type="file" name="photo">
+
+    {% if student.photo %}
+        <p>Текущее фото:</p>
+        <img src="{{ student.photo.url }}" width="120">
+    {% endif %}
+
+    <button type="submit">Сохранить</button>
+
+    <a href="/">← Назад</a>
+
+</form>
+
+</div>
+
+</body>
+</html>

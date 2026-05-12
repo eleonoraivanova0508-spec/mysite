@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Статистика студента</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 30px;
+}
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRswvEziAqWy2oDhWxXYk3vaNts9AJ-_tFA&s") no-repeat center center fixed;
+            background-size: cover;
+        }
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, #4a90e2, #6a5acd);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+th {
+    background: #4a90e2;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f1f7ff;
+}
+
+.grade {
+    font-weight: bold;
+}
+
+.good {
+    color: green;
+}
+
+.bad {
+    color: red;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #6a5acd;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.back:hover {
+    background: #5941c2;
+}
+
+/* КНОПКА ДОБАВИТЬ */
+.add-btn {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background: #218838;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h2>Статистика успеваемости</h2>
+        <p>Средняя оценка: {{ avg_score|floatformat:1 }}</p>
+
+        <!-- КНОПКА -->
+        <a class="add-btn" href="{% url 'add_grade' %}">
+            ➕ Выставить оценку
+        </a>
+    </div>
+
+    <div class="card">
+        <table>
+            <tr>
+                <th>Студент</th>
+                <th>Предмет</th>
+                <th>Оценка</th>
+                <th>Комментарий ДЗ</th>
+            </tr>
+
+            {% for g in grades %}
+            <tr>
+                <td>{{ g.student }}</td>
+                <td>{{ g.subject }}</td>
+
+                <td class="grade 
+                    {% if g.score >= 75 %}good{% else %}bad{% endif %}">
+                    {{ g.score }}
+                </td>
+
+                <td>{{ g.homework_comment }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a class="back" href="{% url 'student_list' %}">
+            ⬅ Назад к списку
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

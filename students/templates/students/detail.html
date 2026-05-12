@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Подробнее</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRswvEziAqWy2oDhWxXYk3vaNts9AJ-_tFA&s") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.box{
+    width:500px;
+    margin:60px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+}
+
+img{
+    border-radius:10px;
+    margin-top:10px;
+}
+
+a{
+    display:inline-block;
+    margin-top:20px;
+    background:#3498db;
+    color:white;
+    padding:10px 15px;
+    text-decoration:none;
+    border-radius:8px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h1>{{ student.first_name }} {{ student.last_name }}</h1>
+
+{% if student.photo %}
+    <img src="{{ student.photo.url }}" width="150">
+{% else %}
+    <p>Фото отсутствует</p>
+{% endif %}
+
+<p><b>Возраст:</b> {{ student.age }}</p>
+<p><b>Телефон:</b> {{ student.phone }}</p>
+<p><b>Почта:</b> {{ student.email }}</p>
+
+<p><b>Клуб:</b> {{ student.club }}</p>
+
+{% if student.club %}
+    <p><b>Название клуба:</b> {{ student.club.name }}</p>
+{% else %}
+    <p>Клуб не назначен</p>
+{% endif %}
+
+<a href="/">⬅ Назад</a>
+
+<a href="{% url 'student_stats' student.id %}">
+    📊 Статистика
+</a>
+
+</div>
+
+</body>
+</html>

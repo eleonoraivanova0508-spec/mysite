@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Добавить оценку</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #f2f4f8;
+}
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRswvEziAqWy2oDhWxXYk3vaNts9AJ-_tFA&s") no-repeat center center fixed;
+            background-size: cover;
+        }
+.box{
+    width: 500px;
+    margin: 60px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+label{
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color: #34495e;
+}
+
+input, textarea, select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus, textarea:focus, select:focus{
+    border-color: #3498db;
+}
+
+button{
+    width: 100%;
+    background: #27ae60;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #219150;
+}
+
+.back{
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    background: #3498db;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.back:hover{
+    background: #2c80b4;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h2>Добавить оценку</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Предмет</label>
+    <input type="text" name="subject">
+
+    <label>Оценка (0–100)</label>
+    <input type="number" name="score" min="0" max="100">
+
+    <label>Комментарий по ДЗ</label>
+    <textarea name="homework_comment" rows="4"></textarea>
+
+    <label>Студент</label>
+    <select name="student">
+        {% for s in students %}
+            <option value="{{ s.id }}">{{ s.first_name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">💾 Сохранить</button>
+</form>
+
+<a href="/" class="back">← Назад</a>
+
+</div>
+
+</body>
+</html>

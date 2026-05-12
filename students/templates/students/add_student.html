@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Добавить студента</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef2f7, #dfe9f3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRswvEziAqWy2oDhWxXYk3vaNts9AJ-_tFA&s") no-repeat center center fixed;
+            background-size: cover;
+        }
+/* карточка */
+.card{
+    width:420px;
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* заголовок */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+/* label */
+label{
+    font-size:14px;
+    color:#555;
+    display:block;
+    margin-top:10px;
+}
+
+/* input */
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    transition:0.2s;
+}
+
+input:focus{
+    border-color:#3498db;
+    box-shadow:0 0 5px rgba(52,152,219,0.3);
+}
+
+/* кнопка */
+button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#2ecc71,#27ae60);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+/* назад */
+.back{
+    display:block;
+    text-align:center;
+    margin-top:12px;
+    color:#3498db;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.back:hover{
+    text-decoration:underline;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>➕ Добавить студента</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label>Имя</label>
+    <input type="text" name="first_name" required>
+
+    <label>Фамилия</label>
+    <input type="text" name="last_name" required>
+
+    <label>Возраст</label>
+    <input type="number" name="age" required>
+
+    <label>Группа</label>
+    <input type="text" name="group">
+
+    <label>Фото</label>
+    <input type="file" name="photo">
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a href="/" class="back">← Назад</a>
+
+</div>
+
+</body>
+</html>
